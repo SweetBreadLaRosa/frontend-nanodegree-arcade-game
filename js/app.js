@@ -17,7 +17,11 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
+    // as stated above
     this.x += this.enemyMovement * dt;
+
+    // need to somehow get enemies looping in this method
+    this.x = this.x >= 505 ? 0 : this.x;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -50,26 +54,31 @@ Player.prototype.handleInput = function(clientKeyPress) {
     if (clientKeyPress === 'left') {
         player.x -= 100;
     }
+
     if (clientKeyPress === 'up') {
         player.y -= 100;
     }
+
     if (clientKeyPress === 'right') {
         player.x += 100;
     }
+
     if (clientKeyPress === 'down') {
         player.y += 100;
     }
 };
-
 // todo: still got work here
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-allEnemies.push(new Enemy(6,6));
-
+// Player
 var player = new Player(5, 5);
+
+// where is the enemies?
+var enemy = new Enemy(200,50,40);
+allEnemies.push(enemy);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
