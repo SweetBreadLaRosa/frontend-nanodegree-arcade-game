@@ -22,6 +22,8 @@ Enemy.prototype.update = function(dt) {
 
     // need to somehow get enemies looping in this method
     this.x = this.x >= 505 ? 0 : this.x;
+
+    // we need collision logic now
 };
 
 // Draw the enemy on the screen, required method for game
@@ -50,21 +52,25 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(clientKeyPress) {
 
     console.log('within Player handleInput: ', clientKeyPress);
+    console.log('X: ', player.x);
+    console.log('Y: ', player.y);
 
-    if (clientKeyPress === 'left') {
+    // we need to stop leaving the player grid with the user sprite
+
+    if (clientKeyPress === 'left' && player.x > 0) {
         player.x -= 100;
     }
 
-    if (clientKeyPress === 'up') {
-        player.y -= 100;
+    if (clientKeyPress === 'up' && player.y > 100) {
+        player.y -= 90;
     }
 
-    if (clientKeyPress === 'right') {
+    if (clientKeyPress === 'right' && player.x < 400) {
         player.x += 100;
     }
 
-    if (clientKeyPress === 'down') {
-        player.y += 100;
+    if (clientKeyPress === 'down' && player.y < 400) {
+        player.y += 90;
     }
 };
 // todo: still got work here
@@ -74,11 +80,15 @@ Player.prototype.handleInput = function(clientKeyPress) {
 // Place the player object in a variable called player
 
 // Player
-var player = new Player(5, 5);
+var player = new Player(100,400);
 
 // where is the enemies?
-var enemy = new Enemy(200,50,40);
-allEnemies.push(enemy);
+var enemy1 = new Enemy(0,100,40);
+var enemy2 = new Enemy(90,200,50);
+var enemy3 = new Enemy(270,300,30);
+
+
+allEnemies.push(enemy1,enemy2,enemy3);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
