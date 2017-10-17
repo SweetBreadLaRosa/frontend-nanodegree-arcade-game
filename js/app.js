@@ -1,5 +1,4 @@
 var allEnemies = [];
-var win = false;
 
 // Enemies our player must avoid
 var Enemy = function(defaultX, defaultY, enemyMovement) {
@@ -44,20 +43,6 @@ Enemy.prototype.getBoundingRect = function() {
     };
 };
 
-// 2d Collision detection function, returns true if a collision was detected
-function detectCollision(rect1, rect2) {
-    return (rect1.x < rect2.x + rect2.width &&
-        rect1.x + rect1.width > rect2.x &&
-        rect1.y < rect2.y + rect2.height &&
-        rect1.height + rect1.y > rect2.y);
-
-}
-
-// checks if the player has reached the pool to win
-function checkIfWin() {
-    return win = player.y === -10;
-}
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -72,9 +57,25 @@ var Player = function(x,y) {
     this.sprite = 'images/char-boy.png';
 };
 
+// checks if the player has reached the pool to win
+Player.prototype.checkIfWin = function() {
+    return this.y === -10;
+};
+
+// 2d Collision detection function, returns true if a collision was detected
+Player.prototype.detectCollision = function(rect2) {
+    var rect1 = this.getBoundingRect();
+
+    return (rect1.x < rect2.x + rect2.width &&
+    rect1.x + rect1.width > rect2.x &&
+    rect1.y < rect2.y + rect2.height &&
+    rect1.height + rect1.y > rect2.y);
+
+};
+
 // used this function to show a simple "YOU WIN" text in the UI when player is complete
 Player.prototype.update = function(dt) {
-    if (checkIfWin()) {
+    if (this.checkIfWin()) {
         document.getElementById("win").innerHTML = 'YOU WIN!!!'
     }
 };
@@ -86,27 +87,27 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(clientKeyPress) {
 
     console.log('within Player handleInput: ', clientKeyPress);
-    console.log('X: ', player.x);
-    console.log('Y: ', player.y);
+    console.log('X: ', this.x);
+    console.log('Y: ', this.y);
 
     // we need to stop leaving the player grid with the user sprite
-    if (clientKeyPress === 'left' && player.x > 0) {
-        player.x -= 100;
+    if (clientKeyPress === 'left' && this.x > 0) {
+        this.x -= 100;
     }
 
-    if (clientKeyPress === 'up' && player.y > 30) {
-        if (player.y < 100) {
-            player.y -= 10;
+    if (clientKeyPress === 'up' && this.y > 30) {
+        if (this.y < 100) {
+            this.y -= 10;
         }
-        player.y -= 80;
+        this.y -= 80;
     }
 
-    if (clientKeyPress === 'right' && player.x < 400) {
-        player.x += 100;
+    if (clientKeyPress === 'right' && this.x < 400) {
+        this.x += 100;
     }
 
-    if (clientKeyPress === 'down' && player.y < 400) {
-        player.y += 80;
+    if (clientKeyPress === 'down' && this.y < 400) {
+        this.y += 80;
     }
 };
 

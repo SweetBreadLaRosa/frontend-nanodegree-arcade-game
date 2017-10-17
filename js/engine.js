@@ -83,12 +83,11 @@ var Engine = (function(global) {
     }
 
     function checkCollisions() {
-        var playerRect = player.getBoundingRect();
         var enemyRect;
 
         for (var i = 0; i < allEnemies.length; ++i) {
             enemyRect = allEnemies[i].getBoundingRect();
-            if (detectCollision(playerRect, enemyRect)) {
+            if (player.detectCollision(enemyRect)) {
                 console.log('collision detected!!!');
                 reset();
             }
