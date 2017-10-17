@@ -1,3 +1,5 @@
+'use strict';
+
 var allEnemies = [];
 
 // Enemies our player must avoid
