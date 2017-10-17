@@ -28,7 +28,6 @@ Enemy.prototype.update = function(dt) {
     // need to somehow get enemies looping in this method
     this.x = this.x >= 505 ? 0 : this.x;
 
-    // we need collision logic now
 };
 
 // Draw the enemy on the screen, required method for game
