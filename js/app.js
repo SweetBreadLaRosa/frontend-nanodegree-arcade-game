@@ -8,8 +8,8 @@ var Enemy = function(defaultX, defaultY, enemyMovement) {
     this.x = defaultX;
     this.y = defaultY;
 
-    this.width = 50;
-    this.height = 50;
+    this.width = 70;
+    this.height = 70;
 
     this.enemyMovement = enemyMovement;
     this.sprite = 'images/enemy-bug.png';
@@ -45,6 +45,7 @@ Enemy.prototype.getBoundingRect = function() {
     };
 };
 
+// 2d Collision detection function, returns true if a collision was detected
 function detectCollision(rect1, rect2) {
     return (rect1.x < rect2.x + rect2.width &&
         rect1.x + rect1.width > rect2.x &&
@@ -53,6 +54,7 @@ function detectCollision(rect1, rect2) {
 
 }
 
+// checks if the player has reached the pool to win
 function checkIfWin() {
     return win = player.y === -10;
 }
@@ -71,6 +73,7 @@ var Player = function(x,y) {
     this.sprite = 'images/char-boy.png';
 };
 
+// used this function to show a simple "YOU WIN" text in the UI when player is complete
 Player.prototype.update = function(dt) {
     if (checkIfWin()) {
         document.getElementById("win").innerHTML = 'YOU WIN!!!'
@@ -123,7 +126,7 @@ Player.prototype.getBoundingRect = function() {
 
 var player = new Player(100,400);
 
-
+// created this so that I could use this function as well when the game is reset - reset() within engine.js
 function startGame() {
     allEnemies = [];
 
